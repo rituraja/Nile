@@ -9,7 +9,7 @@
 
 ## ----- config
 days=1
-entries_per_day=100000
+entries_per_day=1000
 
 import os
 import datetime as dt

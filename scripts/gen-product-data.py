@@ -8,7 +8,7 @@
 
 
 ## ----- config
-entries=10000000
+entries=1000
 
 import os
 import datetime as dt

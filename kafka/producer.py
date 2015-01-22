@@ -4,8 +4,9 @@ from kafka import KafkaClient
 def producer():
   client = KafkaClient('localhost:9092')
   producer = SimpleProducer(client)
-  with open('../scripts/product.log') as products:
+  with open('/home/ubuntu/Nile/data/product.log') as products:
     for product in products:
+      print product
       producer.send_messages('product', product)
 
 def main():
