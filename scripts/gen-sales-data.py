@@ -2,7 +2,7 @@
 
 ## generates sales data files
 ## log format
-##   timestamp (in ms), customer_id, product_id, qty, cost
+##   timestamp (in ms), customer_id, product_id, qty, cost, zipcode
 
 ## timestamp converstions testing site : http://www.epochconverter.com/
 
@@ -10,6 +10,7 @@
 ## ----- config
 days=1
 entries_per_day=1000
+zipcodes=['95054','94085','94040','94301','95036','95015','95051','94081','94041','95035']
 
 import os
 import datetime as dt
@@ -20,7 +21,9 @@ import json
 def generate_log(timestamp):
   customer_id = random.randint(1,100000)
   product_id = random.randint(1,10)
+  name = "Book_%s" % (product_id)
   qty = random.randint(0,100)
+  zipcode = zipcodes[customer_id % 10]
 
   #cost is in cents, could be zero
   cost = random.randint(1,200) - 20
@@ -28,7 +31,7 @@ def generate_log(timestamp):
     cost = 0
 
   #csv
-  logline = "%s,%s,%s,%s,%s" % (timestamp, customer_id, product_id, qty, cost)
+  logline = "%s,%s,%s,%s,%s,%s,%s" % (timestamp, customer_id, product_id, name, qty, cost, zipcode)
 
   #print logline
   return logline

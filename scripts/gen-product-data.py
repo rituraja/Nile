@@ -8,21 +8,24 @@
 
 
 ## ----- config
-entries=1000
+entries = 1000
+categories = ['History','Spirituality','Fiction','Romance','Crafts & Hobbies','Home & Garden','Translations','Religion','Reference','Fantasy']
 
 import os
 import datetime as dt
 import random
 import json
 
+
 # overwrite this function to customize log generation
 def generate_log(product_id):
-  category1 = random.randint(1,10)
-  category2 = random.randint(1,10)
-  category3 = random.randint(1,10)
+  name = "Book_%s" % (product_id)
+  category1 = categories[random.randint(0,9)]
+  category2 = categories[random.randint(0,9)]
+  category3 = categories[random.randint(0,9)]
 
   #csv
-  logline = "%s,%s,%s,%s" % (product_id, category1, category2, category3)
+  logline = "%s,%s,%s,%s,%s" % (product_id, name, category1, category2, category3)
 
   #print logline
   return logline
