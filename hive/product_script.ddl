@@ -1,3 +1,5 @@
+-- define an external table over raw product data ingested in hdfs through kafka
+
 CREATE TABLE IF NOT EXISTS products
 (
 product_id INT,
