@@ -8,8 +8,8 @@
 
 
 ## ----- config
-days=1
-entries_per_day=1000
+days=60
+entries_per_day=10000
 zipcodes=['95054','94085','94040','94301','95036','95015','95051','94081','94041','95035']
 
 import os
@@ -20,8 +20,7 @@ import json
 # overwrite this function to customize log generation
 def generate_log(timestamp):
   customer_id = random.randint(1,100000)
-  product_id = random.randint(1,10)
-  name = "Book_%s" % (product_id)
+  product_id = random.randint(1,542684)
   qty = random.randint(0,100)
   zipcode = zipcodes[customer_id % 10]
 
@@ -31,7 +30,7 @@ def generate_log(timestamp):
     cost = 0
 
   #csv
-  logline = "%s,%s,%s,%s,%s,%s,%s" % (timestamp, customer_id, product_id, name, qty, cost, zipcode)
+  logline = "%s,%s,%s,%s,%s,%s" % (timestamp, customer_id, product_id, qty, cost, zipcode)
 
   #print logline
   return logline
@@ -46,7 +45,7 @@ if __name__ == '__main__':
   #epoch = dt.datetime.fromtimestamp(0)
   epoch = dt.datetime(1970,1,1)
 
-  year_start = dt.datetime(2012, 1, 1)
+  year_start = dt.datetime(2014, 12, 1)
   for day in range(0, days):
     day_delta = dt.timedelta(days=day)
     start_ts = year_start + day_delta
