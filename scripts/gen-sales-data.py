@@ -21,7 +21,7 @@ import json
 def generate_log(timestamp):
   customer_id = random.randint(1,100000)
   product_id = random.randint(1,542684)
-  qty = random.randint(0,100)
+  qty = random.randint(0,5)
   zipcode = zipcodes[customer_id % 10]
 
   #cost is in cents, could be zero
