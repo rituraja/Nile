@@ -8,7 +8,7 @@
 
 
 ## ----- config
-days=60
+days=29
 entries_per_day=10000
 zipcodes=['95054','94085','94040','94301','95036','95015','95051','94081','94041','95035']
 
@@ -21,6 +21,7 @@ import json
 def generate_log(timestamp):
   customer_id = random.randint(1,100000)
   product_id = random.randint(1,542684)
+  name = product_id # need to remove later
   qty = random.randint(0,5)
   zipcode = zipcodes[customer_id % 10]
 
@@ -30,7 +31,7 @@ def generate_log(timestamp):
     cost = 0
 
   #csv
-  logline = "%s,%s,%s,%s,%s,%s" % (timestamp, customer_id, product_id, qty, cost, zipcode)
+  logline = "%s,%s,%s,%s,%s,%s,%s\n" % (timestamp, customer_id, product_id,name, qty, cost, zipcode)
 
   #print logline
   return logline
@@ -64,7 +65,7 @@ if __name__ == '__main__':
         #print "last ts", last_ts
         #print "millis",  millis
         logline = generate_log(millis)
-        fout.write(logline + "\n")
+        fout.write(logline)
 
         last_ts = last_ts + dt.timedelta(milliseconds=time_inc_ms)
 
