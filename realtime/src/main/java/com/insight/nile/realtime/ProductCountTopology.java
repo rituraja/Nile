@@ -1,11 +1,11 @@
 package com.insight.nile.realtime;
 
-import storm.kafka.KafkaSpout;
-import storm.kafka.SpoutConfig;
-import storm.kafka.ZkHosts;
+import java.util.Map;
+
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
+import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.TopologyBuilder;
@@ -33,6 +33,13 @@ public class ProductCountTopology {
 
 	public static class ProductCount extends BaseBasicBolt {
 		private static final long serialVersionUID = 1L;
+    private ProductCountWriter writer;
+
+		@Override
+		public void prepare(Map stormConf, TopologyContext context) {
+		  super.prepare(stormConf, context);
+		  this.writer = new ProductCountWriter();
+		}
 
 		@Override
 		public void execute(Tuple tuple, BasicOutputCollector collector) {
@@ -43,7 +50,7 @@ public class ProductCountTopology {
 			long timestamp =  Long.parseLong(orderFields[0]);
 			int count = Integer.parseInt(orderFields[3]); // quantity
 
-			ProductCountWriter.updateCount(productId, timestamp, count);
+			writer.updateCount(productId, timestamp, count);
 			collector.emit(new Values(productId, count));
 		}
 
