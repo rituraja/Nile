@@ -15,7 +15,7 @@ public class DummySaleSpout extends BaseRichSpout {
 
 	@Override
 	public void nextTuple() {
-		String order = String.format("%s,121AS7,99999,12,14.99", System.currentTimeMillis());
+		String order = String.format("%s,121AS7,8888,1,14.99", System.currentTimeMillis());
 		collector.emit(new Values(order));
 	}
 
