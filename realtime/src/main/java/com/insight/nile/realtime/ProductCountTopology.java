@@ -1,8 +1,5 @@
 package com.insight.nile.realtime;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
@@ -34,19 +31,16 @@ public class ProductCountTopology {
 	public static class ProductCount extends BaseBasicBolt {
 		private static final long serialVersionUID = 1L;
 
-		Map<String, Integer> counts = new HashMap<String, Integer>();
-
 		@Override
 		public void execute(Tuple tuple, BasicOutputCollector collector) {
 			String productId = tuple.getString(0);
 			String order = tuple.getString(1);
 			String[] orderFields = order.split(",");
 
-			Integer count = counts.get(productId);
-			if (count == null)
-				count = 0;
-			count += Integer.parseInt(orderFields[3]); // quantity
-			counts.put(productId, count);
+			long timestamp =  Long.parseLong(orderFields[0]);
+			int count = Integer.parseInt(orderFields[3]); // quantity
+
+			ProductCountWriter.updateCount(productId, timestamp, count);
 			collector.emit(new Values(productId, count));
 		}
 

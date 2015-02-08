@@ -30,10 +30,8 @@ public class ProductCountWriter {
     System.out.println(rowKey + " " + colKey + " " + value);
 
     Configuration hBaseConfig = HBaseConfiguration.create();
-    // hBaseConfig.setInt("timeout", 120000);
     String zookeeperHost = "ip-172-31-3-237.us-west-1.compute.internal";
     hBaseConfig.set("hbase.zookeeper.quorum", zookeeperHost);
-    // hBaseConfig.set("hbase.zookeeper.property.clientPort", "2181");
 
     try {
       HConnection conn = HConnectionManager.createConnection(hBaseConfig);
