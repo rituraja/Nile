@@ -9,7 +9,8 @@ import time
 from kafka import KafkaClient, SimpleConsumer
 from datetime import datetime
 
-kafka = KafkaClient("localhost:9092")
+#kafka = KafkaClient("localhost:9092")
+kafka = KafkaClient('ip-172-31-3-237.us-west-1.compute.internal')
 
 tempfile_path = None
 tempfile = None
@@ -83,12 +84,14 @@ def consume_topic(topic, group, output_dir, frequency):
     print "Consuming from topic '%s' in consumer group %s into %s..." % (topic, group, output_dir)
     #get timestamp
     timestamp = standardized_timestamp(frequency)
+    
     kafka_consumer = SimpleConsumer(kafka, group, topic, max_buffer_size=1310720000)
     
     #open file for writing
     tempfile_path = "/tmp/kafka_%s_%s_%s_%s.dat" % (topic, group, timestamp, batch_counter)
     tempfile = open(tempfile_path,"w")
     log_has_at_least_one = False #did we log at least one entry?
+    
     while True:
         messages = kafka_consumer.get_messages(count=1000, block=False) #get 1000 messages at a time, non blocking
         if not messages:
@@ -101,6 +104,7 @@ def consume_topic(topic, group, output_dir, frequency):
             flush_to_hdfs(output_dir, topic)
         kafka_consumer.commit()
     #exit loop
+  
     if log_has_at_least_one:
         flush_to_hdfs(output_dir, topic)
     kafka_consumer.commit() #save position in the kafka queue
@@ -108,9 +112,9 @@ def consume_topic(topic, group, output_dir, frequency):
 
 
 if __name__ == '__main__':
-    group           = "consumer"
-    output          = "/user/ubuntu"
-    topic           = "product"
+    group           = "consumer"    
+    output          = "/user/ubuntu/NileData/salesorder"
+    topic           = "order"
     frequency       = "1"
     
     print "\nConsuming topic: [%s] into HDFS" % topic
