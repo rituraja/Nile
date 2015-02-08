@@ -48,7 +48,7 @@ FROM sales
 GROUP BY to_date(FROM_UNIXTIME(BIGINT(time / 1000))) ;
 
 
-CREATE TABLE IF NOT EXISTS day_vol_revenue__hbase (sale_date STRING, total INT, revenue DOUBLE)
+CREATE TABLE IF NOT EXISTS day_vol_revenue_hbase (sale_date STRING, total INT, revenue DOUBLE)
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
 WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key,f:c1,f:c2')
 TBLPROPERTIES ('hbase.table.name' = 'day_vol_revenue');
