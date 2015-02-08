@@ -1,5 +1,8 @@
 package com.insight.nile.realtime;
 
+import storm.kafka.KafkaSpout;
+import storm.kafka.SpoutConfig;
+import storm.kafka.ZkHosts;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
@@ -53,8 +56,16 @@ public class ProductCountTopology {
 	public static void main(String[] args) throws Exception {
 		TopologyBuilder builder = new TopologyBuilder();
 
-		builder.setSpout("spout", new DummySaleSpout(), 5);
+//		builder.setSpout("spout", new DummySaleSpout(), 5);
+//---
+	   // Zookeeper that serves for Kafka queue
+    ZkHosts zk = new ZkHosts( "ip-172-31-3-237.us-west-1.compute.internal");
 
+    SpoutConfig config = new SpoutConfig(zk, "order","","");
+
+    builder.setSpout("spout", new KafkaSpout(config));
+
+//-----
 		builder.setBolt("byProductId", new GroupByProduct(), 8).shuffleGrouping("spout");
 		builder.setBolt("count", new ProductCount(), 12).fieldsGrouping("byProductId",
 		    new Fields("productId"));
