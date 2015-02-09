@@ -7,7 +7,7 @@ It is a plateform to analyze sales data of a Amazon like online retail buisness.
 Architecture
 It is inspired by the lambda architecture.
 
-![alt tag](https://github.com/rituraja/Nile/blob/master/pipeine.png "Architecture of Nile")
+![alt tag](https://github.com/rituraja/Nile/blob/master/pipeline.png "Architecture of Nile")
 
 Ingestion
 Data inputs are generated (product catalog & sales order) by a Python script.
