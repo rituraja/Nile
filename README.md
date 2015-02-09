@@ -1,5 +1,5 @@
 #Nile - eCommerce Sales Analytics
-Get real-time insights into sales data. It is currently deployed [Here](https://www.rituraja.com).
+Get real-time insights into sales data. It is currently deployed [Here](http://www.rituraja.com).
 
 ## Introduction
 It is a platform to analyze sales data of an Amazon like online retail business. It allows to slice & dice sales data to get historical macro view and realtime pulse of the state of the business.
