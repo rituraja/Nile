@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1 col-md-1 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="/">Batch</a></li>
+          <li class="active"><a href="#">Realtime <span class="sr-only">(current)</span></a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+        <h1 class="page-header">Realtime Dashboard</h1>
+
+        <div class="row placeholders">
+          <div class="col-xs-6 col-sm-2 placeholder">
+            <img data-src="holder.js/100x100/auto/sky/text:500 MB" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4># Categories</h4>
+          </div>
+          <div class="col-xs-6 col-sm-2 placeholder">
+            <img data-src="holder.js/100x100/auto/vine/text:~1 GB" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4># Products</h4>
+          </div>
+          <div class="col-xs-6 col-sm-2 placeholder">
+            <img data-src="holder.js/100x100/auto/lava/text:~ 100 GB" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4># Sales Orders</h4>
+          </div>
+        </div>  
+
+        <div id="chart21">
+          Realtime Loading...
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='realtime.js') }}"></script>
+{% endblock %}
