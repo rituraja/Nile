@@ -2,7 +2,7 @@
 Get real-time insights into sales data
 
 ## Introduction
-It is a plateform to analyze sales data of a Amazon like online retail buisness. It allows to slice & dice sales data to get historical macro view and realtime pulse of the state of the buisness.
+It is a platform to analyze sales data of an Amazon like online retail business. It allows to slice & dice sales data to get historical macro view and realtime pulse of the state of the business.
 
 ##Architecture
 It is inspired by the lambda architecture.
@@ -16,8 +16,8 @@ A producer is feeding sales data to Kafka & which is consumed by both the batch 
 ###Batch Layer
 It is predominantly implemented in Hive. It is supplemented by MR jobs written in Java. The output of the pipeline is stored in HBase. Since the sales order data size is going to be much larger than catalog, it is performant to replicate the product catalog across all the sales order mapper.
 
-###Realtime Layer
-The pipeline reads off of the same Kafka topic as the batch. It is implemented as Storm topology in Java. It writes the output to HBase tables for the serving layer. Since the topology is maintaining aggregations it is important to keep the concurrency safe and avoid contention on the output rows. This is acheived by fieldgrouping on output key.
+###Speed/Realtime Layer
+The pipeline reads off of the same Kafka topic as the batch. It is implemented as Storm topology in Java. It writes the output to HBase tables for the serving layer. Since the topology is maintaining aggregations it is important to keep the concurrency safe and avoid contention on the output rows. This is achieved by field grouping on output key.
 
 ###Web Interface
 It is implemented using Flask Framework and Highcharts.
