@@ -13,8 +13,8 @@ import random
 zipcodes=['95054','94085','94040','94301','95036','95015','95051','94081','94041','95035']
 
 def orderProducer():
-  client = KafkaClient('localhost:9092')
-  #client = KafkaClient('ip-172-31-3-237.us-west-1.compute.internal')
+  #client = KafkaClient('localhost:9092')
+  client = KafkaClient('ip-172-31-3-237.us-west-1.compute.internal')
   producer = SimpleProducer(client)
   while True:
     timestamp = int(time.time() * 1000) # to make it milisecond

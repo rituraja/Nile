@@ -70,9 +70,10 @@ public class ProductCountTopology {
 //		builder.setSpout("spout", new DummySaleSpout(), 5);
 
 	   	// Zookeeper that serves for Kafka queue
-    		ZkHosts zk = new ZkHosts("localhost:9092"); //new ZkHosts( "ip-172-31-3-237.us-west-1.compute.internal");
+    		//ZkHosts zk = new ZkHosts("localhost:9092"); //
+		ZkHosts zk = new ZkHosts( "ip-172-31-3-237.us-west-1.compute.internal");
 
-    		SpoutConfig config = new SpoutConfig(zk, "order","","");
+    		SpoutConfig config = new SpoutConfig(zk, "order",null,null);
 
     		builder.setSpout("spout", new KafkaSpout(config));
 
