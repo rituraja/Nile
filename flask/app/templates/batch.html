@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1 col-md-1 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Batch <span class="sr-only">(current)</span></a></li>
+          <li><a href="realtime">Realtime</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+        <h1 class="page-header">Historical Data Dashboard</h1>
+
+        <div class="row placeholders">
+          <div class="col-xs-6 col-sm-2 placeholder" style="margin-top:50px;">
+            <img data-src="holder.js/100x100/auto/sky/text:500 MB" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4># Categories</h4>
+
+            <img data-src="holder.js/100x100/auto/vine/text:~1 GB" class="img-responsive" alt="Generic placeholder thumbnail" style="margin-top:20px;">
+            <h4># Products</h4>
+
+            <img data-src="holder.js/100x100/auto/lava/text:~ 100 GB" class="img-responsive" alt="Generic placeholder thumbnail" style="margin-top:20px;">
+            <h4># Sales Orders</h4>
+          </div>
+          <div class="col-xs-6 col-sm-2 col-md-7">
+            <div id="chart1">
+              Loading...
+            </div>
+          </div>
+        </div> 
+
+        <div class="row">
+          <div class="col-md-6">
+            <div id="chart2">
+              Loading...
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="chart3">
+              Loading...
+            </div>
+          </div>
+        </div>
+        <div id="chart4">
+          Loading...
+        </div>
+     </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='batch.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,19 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th>Category</th>
+      <th>No. of Products</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+   {% for key, value in data %}
+     <tr>
+      <td>{{key }}</td>
+      <td>{{value['f:c1']}}</td>
+    </tr>
+   {% endfor %}
+
+  </tbody>
+</table>
