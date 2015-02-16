@@ -19,6 +19,12 @@ def realtime():
         title='Insight Data Engineering Project',
         project = project)
 
+@app.route('/presentation')
+def presentation():
+    return render_template('presentation.html',
+        title='Insight Data Engineering Project',
+        project = project)
+
 @app.route("/hbase/")
 def hbase_test():
     connection = happybase.Connection('54.183.25.144')
@@ -121,14 +127,38 @@ def api_dtr(value = None):
     dataChart = {
         'series' : [{"name": "2014 Nov" , "data": datalist1},
                     {"name": "2014 Dec" , "data": datalist2}],
-        'title' : {"text": 'Monthly Sales'},
+        'title' : {"text": 'Monthly Revenue Comparison'},
         'xAxis' : {"categories": xAxislist,
         'labels': {
                 'rotation': 45
             }},
-        'yAxis' : {"min" : 10000 , "title": {"text": 'Product Count'}},
+        'yAxis' : {"min" : 20000 , "title": {"text": 'Product Count'}},
     }
 
     return jsonify(dataChart)
 
+@app.route("/api/getRealTime")
+def api_realtime(value = None):
+    connection = happybase.Connection('54.183.25.144')
+    hbase_table = connection.table('day_vol_revenue')
+    data = hbase_table.scan(row_prefix='2014-11')
+    datalist = []
+    xAxislist = []
+    for key, value in data:
+        datalist.append(int(value['f:c1']))
+        xAxislist.append(key[7:])
+
+
+
+    dataChart = {
+        'series' : [{"name": "2015 Jan" , "data": datalist}],
+        'title' : {"text": 'Daily Revenue (Product)'},
+        'xAxis' : {"categories": xAxislist,
+        'labels': {
+                'rotation': 45
+            }},
+        'yAxis' : {"min" : 10000 , "title": {"text": 'Product'}},
+    }
+
+    return jsonify(dataChart)
 
