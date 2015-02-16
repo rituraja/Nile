@@ -13,21 +13,6 @@
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
         <h1 class="page-header">Realtime Dashboard</h1>
 
-        <div class="row placeholders">
-          <div class="col-xs-6 col-sm-2 placeholder">
-            <img data-src="holder.js/100x100/auto/sky/text:500 MB" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4># Categories</h4>
-          </div>
-          <div class="col-xs-6 col-sm-2 placeholder">
-            <img data-src="holder.js/100x100/auto/vine/text:~1 GB" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4># Products</h4>
-          </div>
-          <div class="col-xs-6 col-sm-2 placeholder">
-            <img data-src="holder.js/100x100/auto/lava/text:~ 100 GB" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4># Sales Orders</h4>
-          </div>
-        </div>  
-
         <div id="chart21">
           Realtime Loading...
         </div>
@@ -39,5 +24,10 @@
 {% endblock %}
 
 {% block script %}
+    <script type="text/javascript">
+      setTimeout(function(){
+        location = ''
+      },3000)
+    </script>
     <script src="{{ url_for('static', filename='realtime.js') }}"></script>
 {% endblock %}

@@ -142,10 +142,12 @@ def api_dtr(value = None):
 def api_realtime(value = None):
     connection = happybase.Connection('54.183.25.144')
     hbase_table = connection.table('productCount_Min')
-    data = hbase_table.row('10020150216')
+    pid = '300'
+    day = '20150216'
+    data = hbase_table.row(pid + day)
     datalist = []
     xAxislist = []
-    for key in data.keys():
+    for key in sorted(data.keys()):
         # convert byte array to number
         datalist.append(struct.unpack(">L", data[key])[0])
         xAxislist.append(key[4:])
