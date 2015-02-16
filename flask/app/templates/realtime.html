@@ -24,10 +24,6 @@
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript">
-      setTimeout(function(){
-        location = ''
-      },3000)
-    </script>
+   
     <script src="{{ url_for('static', filename='realtime.js') }}"></script>
 {% endblock %}
