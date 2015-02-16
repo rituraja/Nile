@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, jsonify
 import happybase
-import struct
+import struct, datetime 
 
 project = {'name':'Nile',
     'desc': 'Sales Analytics' 
@@ -142,8 +142,9 @@ def api_dtr(value = None):
 def api_realtime(value = None):
     connection = happybase.Connection('54.183.25.144')
     hbase_table = connection.table('productCount_Min')
-    pid = '300'
-    day = '20150216'
+    pid = '193'
+    day = datetime.date.today().strftime('%Y%m%d') #'20150216'
+    datestr = datetime.date.today().strftime('%B %d, %Y')
     data = hbase_table.row(pid + day)
     datalist = []
     xAxislist = []
@@ -155,8 +156,8 @@ def api_realtime(value = None):
 
 
     dataChart = {
-        'series' : [{"name": "16 Feb, 2015" , "data": datalist}],
-        'title' : {"text": 'Daily Revenue (Product id = 100)'},
+        'series' : [{"name": "%s" % (datestr), "data": datalist}],
+        'title' : {"text": 'Daily Revenue (Product id = %s)' % (pid)},
         'xAxis' : {"categories": xAxislist,
         'labels': {
                 'rotation': 45
