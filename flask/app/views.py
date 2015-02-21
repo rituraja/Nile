@@ -148,7 +148,9 @@ def api_realtime(value = None):
     data = hbase_table.row(pid + day)
     datalist = []
     xAxislist = []
-    for key in sorted(data.keys()):
+    somekeys = sorted(data.keys())[-20:]
+
+    for key in somekeys:
         # convert byte array to number as big-endian numbers
         datalist.append(struct.unpack(">L", data[key])[0])
         xAxislist.append(key[4:])
