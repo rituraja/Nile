@@ -124,7 +124,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass />
+							<mainClass>com.insight.nile.ProductDriver</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

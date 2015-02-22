@@ -70,6 +70,9 @@ public class ProductDriver {
 
   public static void main(String[] args) throws Exception {
     Configuration conf = HBaseConfiguration.create();
+    String zookeeperHost = "ip-172-31-3-237.us-west-1.compute.internal";
+    conf.set("hbase.zookeeper.quorum", zookeeperHost);
+
     String[] otherArgs = new GenericOptionsParser(conf, args)
         .getRemainingArgs();
     if (otherArgs.length < 2) {
