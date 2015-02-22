@@ -7,13 +7,17 @@ import java.util.Set;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
+import org.apache.hadoop.hbase.mapreduce.TableReducer;
+import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 public class ProductDriver {
@@ -48,8 +52,7 @@ public class ProductDriver {
   }
 
   public static class CategoryProductCountReducer extends
-      Reducer<Text, IntWritable, Text, IntWritable> {
-    private IntWritable result = new IntWritable();
+      TableReducer<Text, IntWritable, ImmutableBytesWritable> {
 
     @Override
     public void reduce(Text key, Iterable<IntWritable> values, Context context)
@@ -58,13 +61,15 @@ public class ProductDriver {
       for (IntWritable val : values) {
         count += val.get();
       }
-      result.set(count);
-      context.write(key, result);
+      Put put = new Put(Bytes.toBytes(key.toString()));
+      put.add(Bytes.toBytes("cf"), Bytes.toBytes("count"), Bytes.toBytes(count));
+
+      context.write(null, put);
     }
   }
 
   public static void main(String[] args) throws Exception {
-    Configuration conf = new Configuration();
+    Configuration conf = HBaseConfiguration.create();
     String[] otherArgs = new GenericOptionsParser(conf, args)
         .getRemainingArgs();
     if (otherArgs.length < 2) {
@@ -81,8 +86,10 @@ public class ProductDriver {
     for (int i = 0; i < otherArgs.length - 1; ++i) {
       FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
     }
-    FileOutputFormat.setOutputPath(job, new Path(
-        otherArgs[otherArgs.length - 1]));
+    TableMapReduceUtil.initTableReducerJob("product_count",
+        CategoryProductCountReducer.class, job);
+//    FileOutputFormat.setOutputPath(job, new Path(
+//        otherArgs[otherArgs.length - 1]));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
   }
 }

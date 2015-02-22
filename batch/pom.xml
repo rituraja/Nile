@@ -86,6 +86,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+			<version>0.90.2</version>
+		</dependency>
 
 	</dependencies>
 
