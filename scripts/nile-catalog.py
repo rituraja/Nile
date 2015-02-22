@@ -12,7 +12,8 @@ def process(record):
   pid = ''
   asin = ''
   title = ''
-  categories = []
+  group = ''
+  categories = set()
   for line in record:
     if line[:3] == 'Id:':
       pid = line[3:].strip()
@@ -20,32 +21,30 @@ def process(record):
       asin = line[5:].strip()
     if line[:8] == '  title:':
       title = line[8:].strip().replace(',', '-')
-    if line[:4] == '   |':
-      cat_list = line.strip().replace(',', '-').split('|')
-      # print cate
-      if len(cat_list) > 3: 
-        i = cat_list[1].find('[')
-        cat1 = cat_list[1][:i]    # select 3rd level category
-        
-        i = cat_list[3].find('[')
-        cat2 = cat_list[3][:i]    # select 3rd level category
-        
-        n = len(cat_list) - 1
-        i = cat_list[n].find('[')
-        cat3 = cat_list[n][:i]    # select leaf level category
-
-        chosen =  cat1 + '|' + cat2 + '|' + cat3
-        
-        categories.append(chosen)
-  # flatten the categories before writing
-  log = ''
-  for category in set(categories):  # make set to remove duplicate categories
-    log = log + '%s,%s,%s\n' %(pid, title, category)
+    if line[:8] == '  group:':
+      group = line[8:].strip().replace(',', '-')
+    
+    if line.lstrip()[0] == '|':
+      category = line.strip().replace(',', '-').split('|')
+      cat_name_path = map(lambda item: item[:item.find('[')].strip(), category)
+      parent = ''
+      for item in cat_name_path:
+        if item != '':
+          if parent != '':
+            parent = parent + '|' + item
+          else:
+            parent = item
+          categories.add(parent)
+  
+  # print categories
+  all_categories = '%'.join(sorted(list(categories)))
+  log = '%s,%s,%s\n' %(pid, title, all_categories)
+  
   return log
 
 
 with open('amazon-meta.txt','r') as input_file:
-  fout = open('nile-catalog.txt','a')
+  fout = open('nile-meta.txt','a')
   record = []
   for line in input_file:
     if len(line.strip()) == 0:

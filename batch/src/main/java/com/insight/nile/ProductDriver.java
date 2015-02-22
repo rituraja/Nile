@@ -27,8 +27,8 @@ public class ProductDriver {
     @Override
     public void map(Object key, Text value, Context context)
         throws IOException, InterruptedException {
-      String[] col = value.toString().split("\t");
-      if (col.length < 2) {
+      String[] col = value.toString().split(",");
+      if (col.length < 3) {
         return;
       }
 
@@ -41,7 +41,7 @@ public class ProductDriver {
     }
 
     static Set<String> uniqueCategories(String col) {
-      String[] categories = col.split("\\|");
+      String[] categories = col.split("%");
       Set<String> cateSet = new HashSet<>(Arrays.asList(categories));
       return cateSet;
     }
