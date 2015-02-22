@@ -19,8 +19,8 @@ def orderProducer():
   while True:
     timestamp = int(time.time() * 1000) # to make it milisecond
     customer_id = random.randint(1,100000)
-    product_id = random.randint(1,500)
-    qty = random.randint(0,5)
+    product_id = random.randint(190,210)
+    qty = random.randint(1,3)
     zipcode = zipcodes[customer_id % 10]
 
     #cost is in cents, could be zero
@@ -32,7 +32,7 @@ def orderProducer():
     print order
     producer.send_messages('order', order)
 
-    time.sleep(5)
+    time.sleep(1)
 
 def main():
   orderProducer()
