@@ -42,7 +42,7 @@ public class ProductDriver {
 
     static Set<String> uniqueCategories(String col) {
       String[] categories = col.split("%");
-      Set<String> cateSet = new HashSet<>(Arrays.asList(categories));
+      Set<String> cateSet = new HashSet<String>(Arrays.asList(categories));
       return cateSet;
     }
   }
