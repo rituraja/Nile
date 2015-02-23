@@ -82,6 +82,8 @@ public class ProductDriver {
     Job job = new Job(conf, "categorycount");
     job.setJarByClass(ProductDriver.class);
     job.setMapperClass(CategoryMapper.class);
+    job.setMapOutputKeyClass(Text.class);
+    job.setMapOutputValueClass(IntWritable.class);
     job.setCombinerClass(CategoryProductCountReducer.class);
     job.setReducerClass(CategoryProductCountReducer.class);
     job.setOutputKeyClass(Text.class);
