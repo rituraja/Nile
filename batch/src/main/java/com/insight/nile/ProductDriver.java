@@ -9,7 +9,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.mapreduce.TableReducer;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -52,7 +51,7 @@ public class ProductDriver {
   }
 
   public static class CategoryProductCountReducer extends
-      TableReducer<Text, IntWritable, ImmutableBytesWritable> {
+      TableReducer<Text, IntWritable, Text> {
 
     @Override
     public void reduce(Text key, Iterable<IntWritable> values, Context context)
@@ -64,7 +63,7 @@ public class ProductDriver {
       Put put = new Put(Bytes.toBytes(key.toString()));
       put.add(Bytes.toBytes("cf"), Bytes.toBytes("count"), Bytes.toBytes(count));
 
-      context.write(null, put);
+      context.write(key, put);
     }
   }
 
