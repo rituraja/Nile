@@ -143,12 +143,12 @@ def api_realtime(value = None):
     connection = happybase.Connection('54.183.25.144')
     hbase_table = connection.table('productCount_Min')
     pid = '203'
-    day = datetime.date.today().strftime('%Y%m%d') #'20150216'
-    datestr = datetime.date.today().strftime('%B %d, %Y')
+    day = datetime.datetime.utcnow().strftime('%Y%m%d') #'20150216'
+    datestr = datetime.datetime.utcnow().strftime('%B %d, %Y')
     data = hbase_table.row(pid + day)
     datalist = []
     xAxislist = []
-    somekeys = sorted(data.keys())[-20:]
+    somekeys = sorted(data.keys())[-10:]
 
     for key in somekeys:
         # convert byte array to number as big-endian numbers
@@ -157,7 +157,7 @@ def api_realtime(value = None):
 
     dataChart = {
         'series' : [{"name": "%s" % (datestr), "data": datalist}],
-        'title' : {"text": 'Daily Revenue (Product id = %s)' % (pid)},
+        'title' : {"text": 'Sale Volume (Product id = %s)' % (pid)},
         'xAxis' : {"categories": xAxislist,
         'labels': {
                 'rotation': 45
