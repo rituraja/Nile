@@ -85,8 +85,8 @@ public class ProductDriver {
     job.setMapOutputValueClass(IntWritable.class);
     job.setCombinerClass(CategoryProductCountReducer.class);
     job.setReducerClass(CategoryProductCountReducer.class);
-    job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(IntWritable.class);
+//    job.setOutputKeyClass(Text.class);
+//    job.setOutputValueClass(IntWritable.class);
     for (int i = 0; i < otherArgs.length - 1; ++i) {
       FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
     }
