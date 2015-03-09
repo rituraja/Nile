@@ -15,8 +15,7 @@ It is inspired by the lambda architecture.
 ###Ingestion
 Data inputs are generated (product catalog & sales order) by a Python script.
 A producer is feeding sales data to Kafka & which is consumed by both the batch and realtime system.
-- Multiline record to tsv
-    Amazon catalog imported from [Here](http://snap.stanford.edu/data/amazon-meta.html)
+- Multiline record to tsv (Amazon catalog imported from [Here](http://snap.stanford.edu/data/amazon-meta.html) )
 - Kafka reliably chunks out messages for batch storage and speed layer
 - Decouple transaction and analytical system
 
@@ -31,13 +30,14 @@ The pipeline reads off of the same Kafka topic as the batch. It is implemented a
 
 ###Web Interface
 It is implemented using Flask Framework and Highcharts.
+Flask connects to Hbase using HappyBase
 ![alt tag](https://github.com/rituraja/Nile/blob/master/NileDashboard.png "Nile - Dashboard")
 
 ##Use-Cases
--Record historical sales data
--Daily/Monthly volumes by category
--Month to month product revenue comparative trend 
--Product popularity by location (zipcode / region)
--Real-time view of product sale by minute 
+- Record historical sales data
+- Daily/Monthly volumes by category
+- Month to month product revenue comparative trend 
+- Product popularity by location (zipcode / region)
+- Real-time view of product sale by minute 
 
 
